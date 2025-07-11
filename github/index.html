@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stardew Valley Counter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <style>
+        /* Variables CSS para facilitar cambios de color */
+        :root {
+            --stardew-green-dark: #3a623e;
+            --stardew-green-light: #5ba35e;
+            --stardew-brown: #7c4832;
+            --stardew-yellow: #f8e178;
+            --stardew-dirt: #4e3223;
+            --stardew-sky: #87ceeb;
+            --pixel-border: 4px; /* Grosor del borde pixelado */
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive; /* Fuente pixelada */
+            background-color: var(--stardew-sky); /* Fondo azul cielo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-image:
+                linear-gradient(to bottom, transparent 95%, rgba(0,0,0,0.1) 95%),
+                linear-gradient(to right, transparent 95%, rgba(0,0,0,0.1) 95%);
+            background-size: var(--pixel-border) var(--pixel-border); /* Efecto de píxeles grandes en el fondo */
+        }
+
+        .container {
+            background-color: var(--stardew-green-light);
+            border: var(--pixel-border) solid var(--stardew-green-dark);
+            box-shadow: var(--pixel-border) var(--pixel-border) 0px 0px var(--stardew-brown); /* Sombra pixelada */
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px; /* Ligeros bordes redondeados */
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            z-index: 1; /* Para que esté por encima del fondo */
+            box-sizing: border-box;
+        }
+
+        .container::before, .container::after {
+            content: '';
+            position: absolute;
+            background-color: var(--stardew-dirt);
+            border: var(--pixel-border) solid var(--stardew-brown);
+            border-radius: 4px;
+            z-index: -1;
+        }
+
+        .container::before {
+            width: 90%;
+            height: 90%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+            filter: blur(1px); /* Suave desenfoque para dar profundidad */
+        }
+
+        .container::after {
+            width: 95%;
+            height: 95%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+            filter: blur(2px);
+        }
+
+        h1 {
+            color: var(--stardew-brown);
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: var(--pixel-border) var(--pixel-border) var(--stardew-green-dark); /* Sombra de texto pixelada */
+            word-wrap: break-word; /* Para asegurar que el texto se rompa si es muy largo */
+        }
+
+        .counter-display {
+            background-color: var(--stardew-yellow);
+            color: var(--stardew-brown);
+            font-size: 3em;
+            padding: 15px 20px;
+            border: var(--pixel-border) solid var(--stardew-brown);
+            box-shadow: inset 0px 0px 0px var(--pixel-border) var(--stardew-brown);
+            margin-bottom: 30px;
+            display: inline-block; /* Para que el padding y border afecten su tamaño */
+            min-width: 150px; /* Asegura un ancho mínimo para el contador */
+            border-radius: 5px;
+            text-shadow: 2px 2px var(--stardew-green-light);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espacio entre botones */
+            flex-wrap: wrap; /* Permite que los botones salten de línea en pantallas pequeñas */
+        }
+
+        .pixel-button {
+            background-color: var(--stardew-brown);
+            color: var(--stardew-yellow);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1em;
+            padding: 12px 25px;
+            border: var(--pixel-border) solid var(--stardew-dirt);
+            box-shadow: var(--pixel-border) var(--pixel-border) 0px 0px var(--stardew-green-dark); /* Sombra pixelada */
+            cursor: pointer;
+            outline: none;
+            transition: all 0.1s ease-out; /* Transición rápida para efecto de clic */
+            border-radius: 4px;
+            text-transform: uppercase; /* Texto en mayúsculas */
+            white-space: nowrap; /* Evita que el texto del botón se rompa */
+        }
+
+        .pixel-button:hover {
+            background-color: #8c5b43; /* Un poco más claro al pasar el mouse */
+            box-shadow: var(--pixel-border) var(--pixel-border) 0px 0px var(--stardew-green-dark); /* La sombra se mantiene */
+            transform: translateY(-2px); /* Ligeramente hacia arriba */
+        }
+
+        .pixel-button:active {
+            transform: translateY(var(--pixel-border)); /* Baja el botón para simular clic */
+            box-shadow: 0px 0px 0px 0px var(--stardew-green-dark); /* La sombra "se hunde" */
+            background-color: #6a3e2c; /* Oscurece el color de fondo */
+        }
+
+        /* Media queries para responsividad */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .counter-display {
+                font-size: 2.5em;
+                min-width: 120px;
+            }
+            .pixel-button {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+            .button-group {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌳 Tu Contador 🌾</h1>
+        <div id="counter" class="counter-display">0</div>
+        <div class="button-group">
+            <button id="increaseBtn" class="pixel-button">Sumar 🧑‍🌾</button>
+            <button id="decreaseBtn" class="pixel-button">Restar ⛏️</button>
+            <button id="resetBtn" class="pixel-button">Reiniciar 💧</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script> </body>
+</html>
